@@ -10,6 +10,17 @@ const ChatFeed = (props) =>{
     /*if chat exists then find activeChats in chats*/
     console.log(chat, userName, messages);
 
+    const renderReadReceipts = (message, isMyMessage) => {chat.people.map((person, index) => person.last_read === message.id && (
+      <div
+        key={`read_${index}`}
+        className="read-receipt"
+        style={{
+          float: isMyMessage ? 'right' : 'left',
+          backgroundImage: person.person.avatar && `url(${person.person.avatar})`,
+        }}
+      />
+    ));}
+
     const renderMessages = () => {
         const keys = Object.keys(messages);
         /*displays ID of each message*/
@@ -29,7 +40,7 @@ const ChatFeed = (props) =>{
                         }
                     </div>
                     <div className="read-receipts" style={{ marginRight: isMyMessage ? '18px' : '0px', marginLeft: isMyMessage ? '0px' : '68px' }}>
-                        read-receipts
+                      {renderReadReceipts(message, isMyMessage)}
                     </div>
                 </div>
             )
